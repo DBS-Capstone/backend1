@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:13
+    restart: always
+    environment:
+      - POSTGRES_USER=kicau_user
+      - POSTGRES_PASSWORD=kicau_password
+      - POSTGRES_DB=kicau_db
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://kicau_user:kicau_password@postgres:5432/kicau_db?schema=public
+volumes:
+  postgres:

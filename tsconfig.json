@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./src", // ⬅️ baseUrl diset ke src
+    "paths": {
+      "@prisma/*": ["prisma/*"], // ⬅️ path alias untuk folder prisma
+      "@app/*": ["app/*"], // (optional) alias lain kalau mau
+      "@birds/*": ["birds/*"]
+    },
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": ["src"], // ⬅️ biar hanya compile src/
+  "exclude": ["node_modules", "dist"]
+}
