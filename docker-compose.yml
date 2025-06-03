@@ -1,6 +1,8 @@
 services:
   postgres:
-    image: postgres:13
+    build:
+      context: ./postgres-setup
+      dockerfile: Dockerfile
     restart: always
     environment:
       - POSTGRES_USER=kicau_user
@@ -8,8 +10,15 @@ services:
       - POSTGRES_DB=kicau_db
     volumes:
       - postgres:/var/lib/postgresql/data
+      - ./backups:/backups
     ports:
       - '5432:5432'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kicau_user -d kicau_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   backend:
     build:
       context: .
@@ -17,8 +26,25 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       - DATABASE_URL=postgresql://kicau_user:kicau_password@postgres:5432/kicau_db?schema=public
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin-kicau
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@kicau.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    profiles:
+      - admin
+
 volumes:
   postgres:
