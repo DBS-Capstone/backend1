@@ -1,4 +1,4 @@
-.PHONY: help build up down logs clean load-birds backup restore
+.PHONY: help build up down logs clean backup restore
 
 # default target
 help:
@@ -8,7 +8,6 @@ help:
 	@echo "  down        - Stop all services"
 	@echo "  logs        - Show logs for all services"
 	@echo "  clean       - Remove containers and volumes"
-	@echo "  load-birds  - Load bird data into database (run once)"
 	@echo "  backup      - Create database backup"
 	@echo "  restore     - Restore database from backup"
 	@echo "  admin       - Start with pgAdmin"
@@ -38,11 +37,6 @@ clean:
 	docker-compose down -v
 	docker system prune -f
 
-# load bird data (run this once after first startup)
-load-birds:
-	@echo "Loading bird data from eBird..."
-	docker-compose exec postgres /usr/local/bin/load-bird-data.sh
-
 # create database backup
 backup:
 	@echo "Creating backup..."
@@ -59,7 +53,6 @@ restore:
 start: build up
 	@echo "Waiting for services to be ready..."
 	@sleep 10
-	@make load-birds
 	@echo "Setup complete! Services running:"
 	@echo "  - Backend: http://localhost:3000"
 	@echo "  - Database: localhost:5432"

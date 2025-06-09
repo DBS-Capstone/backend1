@@ -1,8 +1,6 @@
 services:
   postgres:
-    build:
-      context: ./postgres-setup
-      dockerfile: Dockerfile
+    image: postgres:13
     restart: always
     environment:
       - POSTGRES_USER=kicau_user
@@ -11,6 +9,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
       - ./backups:/backups
+      - ./kicau_db_init.sql:/docker-entrypoint-initdb.d/kicau_db_init.sql
     ports:
       - '5432:5432'
     healthcheck:
