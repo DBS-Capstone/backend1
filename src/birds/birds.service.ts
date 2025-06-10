@@ -59,7 +59,7 @@ export class BirdsService {
         },
       },
       include: {
-        foto_voice: true, 
+        foto_voice: true,
       },
     });
   }
