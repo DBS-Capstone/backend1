@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+		"name": "Kicau Finder API",
+		"description": "Koleksi endpoint untuk menguji API Kicau Finder yang dibuat dengan NestJS dan Prisma.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/index.json"
+	},
+	"item": [
+		{
+			"name": "Get All Birds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/birds",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"birds"
+					]
+				},
+				"description": "Mengambil semua data burung yang ada di database beserta foto-fotonya."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bird by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/birds/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"birds",
+						"1"
+					]
+				},
+				"description": "Mengambil data satu burung berdasarkan ID uniknya. Coba ganti angka '1' dengan ID lain yang ada."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bird by Common Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/birds/name/Sikatan Paruh-Perahu",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"birds",
+						"name",
+						"Sikatan Paruh-Perahu"
+					]
+				},
+				"description": "Mengambil data burung berdasarkan nama umumnya (common_name). Nama ini harus sama persis (tapi tidak case-sensitive)."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Birds by Habitat",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/birds/habitat/hutan",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"birds",
+						"habitat",
+						"hutan"
+					]
+				},
+				"description": "Mengambil daftar burung yang habitatnya mengandung kata 'hutan'. Pencarian ini bersifat parsial dan tidak case-sensitive."
+			},
+			"response": []
+		},
+		{
+			"name": "Root (Health Check)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Endpoint dasar untuk memeriksa apakah aplikasi berjalan. Seharusnya mengembalikan 'Hello World!'."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
