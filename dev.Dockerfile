@@ -16,5 +16,6 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:dev"]
-
+CMD npx prisma migrate deploy && \
+    npm run prisma:seed && \
+    npm run start:dev
