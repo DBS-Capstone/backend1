@@ -6,49 +6,39 @@ import { Bird } from '@prisma/client';
 export class BirdsService {
   constructor(private prisma: PrismaService) {}
 
-  /**
-   * Mengambil semua data burung beserta foto-fotonya.
-   */
   async findAll(): Promise<Bird[]> {
     return this.prisma.bird.findMany({
       include: {
-        foto_voice: true, // data relasional dari tabel foto_voice
+        foto_voice: true, 
       },
     });
   }
 
-  /**
-   * Mengambil satu burung berdasarkan ID beserta foto-fotonya.
-   */
+
   async findOne(id: number): Promise<Bird | null> {
     return this.prisma.bird.findUnique({
       where: { id },
       include: {
-        foto_voice: true, // data relasional
+        foto_voice: true, 
       },
     });
   }
 
-  /**
-   * Mengambil satu burung berdasarkan nama umum (common_name).
-   */
   async findByCommonName(name: string): Promise<Bird | null> {
     return this.prisma.bird.findFirst({
       where: {
         common_name: {
-          contains: name, // Menggunakan contains agar lebih fleksibel
+          contains: name, 
           mode: 'insensitive',
         },
       },
       include: {
-        foto_voice: true, // ini buat data relasional
+        foto_voice: true, 
       },
     });
   }
 
-  /**
-   * Mengambil satu burung berdasarkan kode spesiesnya.
-   */
+
   async findBySpeciesCode(species_code: string): Promise<Bird | null> {
     return this.prisma.bird.findUnique({
       where: {
@@ -60,9 +50,7 @@ export class BirdsService {
     });
   }
 
-  /**
-   * [BARU] Mengambil daftar burung berdasarkan habitat.
-   */
+
   async findByHabitat(habitat: string): Promise<Bird[]> {
     return this.prisma.bird.findMany({
       where: {
